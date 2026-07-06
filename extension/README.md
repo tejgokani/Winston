@@ -4,6 +4,16 @@ The VS Code face of [Winston](../README.md), the AI security auditor. It wraps
 the Winston MCP server and renders its findings as an interactive **root-cause
 threat graph** right inside the editor — no browser, no web viewer.
 
+## Install
+
+Not published to the VS Code Marketplace or Open VSX — install manually:
+
+1. Download `winston-0.1.0.vsix` from the
+   [latest release](https://github.com/tejgokani/Winston/releases/latest)
+2. VS Code → Extensions view → **"…"** menu → **Install from VSIX…** →
+   select the file (or just drag it onto the Extensions view)
+3. `npm install -g winston_sec_mcp` for the MCP server it drives
+
 ## What it does
 
 - **`Winston: Enable in this workspace`** — writes/merges a `.vscode/mcp.json`
@@ -37,8 +47,10 @@ npm run build      # compile src/ → dist/
 # press F5 in VS Code to launch an Extension Development Host
 ```
 
-Before publishing to the Marketplace, add a `media/icon.png` and restore the
-`icon` field in `package.json`, then `npx @vscode/vsce package`.
+To build your own `.vsix` from source: `npx @vscode/vsce package` (run
+inside `extension/`). Released `.vsix` builds are attached to
+[GitHub Releases](https://github.com/tejgokani/Winston/releases), not
+published to a marketplace.
 
 ## Relationship to the MCP server
 

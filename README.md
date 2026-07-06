@@ -311,14 +311,21 @@ gate CI on a minimum audit-quality bar. See
 ## VS Code Extension
 
 `extension/` is the Winston VS Code extension — the branded, one-click face
-of the server. It builds clean (`npm run build` inside `extension/`, plain
-`tsc`, zero external UI dependencies) and packages via
-`npx @vscode/vsce package`. It contributes three commands and renders its own
-graph view entirely inside VS Code — no browser tab, no external server. It
-also deliberately does not spawn any child processes itself (a common
-trigger for marketplace security scanners) — anything that needs to shell
-out, like git-based AI-tooling detection, runs through the MCP server
-instead, which the user's agent already trusts.
+of the server, rendering its own graph view entirely inside VS Code (no
+browser tab, no external server). It's **not on the VS Code Marketplace or
+Open VSX** — install it manually:
+
+1. Download `winston-0.1.0.vsix` from the
+   [latest release](https://github.com/tejgokani/Winston/releases/latest)
+2. In VS Code: Extensions view → **"…"** menu → **Install from VSIX…** →
+   select the file. (Or just drag the file onto the Extensions view, or
+   anywhere in the VS Code window.)
+3. Install the MCP server it drives: `npm install -g winston_sec_mcp`
+
+It contributes three commands and deliberately does not spawn any child
+processes itself — anything that needs to shell out, like git-based
+AI-tooling detection, runs through the MCP server instead, which the user's
+agent already trusts.
 
 - **`Winston: Enable in this workspace`** writes (or merges into) a
   `.vscode/mcp.json` pointing at the Winston MCP server, so any MCP-aware
@@ -336,10 +343,8 @@ instead, which the user's agent already trusts.
   beneath it, and clicking a node shows its evidence, reasoning, and fix
   prompt, with affected files opening directly in the editor.
 
-The extension is not yet published to the Marketplace — install it locally
-(`npx @vscode/vsce package` then "Install from VSIX…" in VS Code, or run it
-via `F5` in an Extension Development Host from `extension/`). See
-[`extension/README.md`](extension/README.md) for development details.
+See [`extension/README.md`](extension/README.md) for development details,
+including how to build and package it yourself from source.
 
 ## Configuration
 
