@@ -3,7 +3,7 @@
   "displayName": "Winston — AI Security Auditor",
   "description": "State-of-the-art security auditing inside VS Code. Detects your stack, targets the exact playbooks, and renders findings as an interactive root-cause threat graph — the crown at the top, affected files branching beneath.",
   "version": "0.1.0",
-  "publisher": "winston",
+  "publisher": "TejGokani",
   "icon": "media/icon.png",
   "license": "SEE LICENSE IN ../LICENSE",
   "repository": {
