@@ -7,6 +7,7 @@
 **An MCP server that turns any LLM into a security auditor — producing an
 interactive, root-cause threat graph instead of a wall of text.**
 
+[![npm](https://img.shields.io/npm/v/winston_sec_mcp?color=CB3837&label=npm)](https://www.npmjs.com/package/winston_sec_mcp)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)
 ![Node](https://img.shields.io/badge/Node-%E2%89%A520-339933?logo=node.js&logoColor=white)
 ![MCP](https://img.shields.io/badge/Model%20Context%20Protocol-Server-8A2BE2)
@@ -126,9 +127,49 @@ call for.
 
 ## Quick Start
 
-> Winston is not yet published to npm — build and run it from source today.
-> (`npx -y winston_sec_mcp` will work once published; the extension already
-> defaults to that command.)
+Winston is published to npm as **`winston_sec_mcp`** (the plain `winston`
+name was already taken by the unrelated, popular logging library — the
+published registry name is the only thing that differs; the CLI commands,
+MCP server identity, and all branding are still "Winston").
+
+Install it globally, then point any MCP-capable client at the `winston-mcp`
+command:
+
+```bash
+npm install -g winston_sec_mcp
+```
+
+```json
+{
+  "mcpServers": {
+    "winston": {
+      "command": "winston-mcp",
+      "args": []
+    }
+  }
+}
+```
+
+Or run it on-demand with `npx`, with no install step. Because the package
+name doesn't match the `winston-mcp` executable it provides, `npx` needs the
+executable named explicitly with `-p`/`--package` — plain `npx -y
+winston_sec_mcp` will fail with "could not determine executable to run":
+
+```json
+{
+  "mcpServers": {
+    "winston": {
+      "command": "npx",
+      "args": ["-y", "-p", "winston_sec_mcp", "winston-mcp"]
+    }
+  }
+}
+```
+
+The same shape works for Cursor, Windsurf, and Claude Desktop's MCP config —
+only the config file's location differs.
+
+**Building from source instead** (for development, or to track `main`):
 
 ```bash
 git clone https://github.com/tejgokani/Winston.git
@@ -136,9 +177,6 @@ cd Winston
 npm install
 npm run build
 ```
-
-Point any MCP-capable client at the built server. For Claude Code, add to
-`.mcp.json` in your project (or run `claude mcp add`):
 
 ```json
 {
@@ -150,9 +188,6 @@ Point any MCP-capable client at the built server. For Claude Code, add to
   }
 }
 ```
-
-The same shape works for Cursor, Windsurf, and Claude Desktop's MCP config —
-only the config file's location differs.
 
 Then, in your agent, just ask:
 
@@ -417,7 +452,8 @@ npx @modelcontextprotocol/inspector --cli node dist/server.js \
 Winston is pre-1.0 and under active development. Currently accurate,
 worth knowing before you rely on it:
 
-- Not yet published to npm — build from source (see [Quick Start](#quick-start)).
+- Published to npm as `winston_sec_mcp` (see [Quick Start](#quick-start) for
+  why the registry name differs from the `winston`/`winston-mcp` commands).
 - Structural repo scanning covers JS/TS, Python, Go, Rust, Java, PHP, and
   Ruby; Kotlin/Swift/Dart repos use an extension-based file-selection
   fallback rather than full structural parsing.
