@@ -6,6 +6,11 @@
   "publisher": "winston",
   "icon": "media/icon.png",
   "license": "SEE LICENSE IN ../LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tejgokani/Winston.git",
+    "directory": "extension"
+  },
   "engines": {
     "vscode": "^1.90.0"
   },
