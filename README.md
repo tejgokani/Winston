@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="media/logo.png" alt="Winston" width="380" />
+
 <pre>
 ██╗    ██╗██╗███╗   ██╗███████╗████████╗ ██████╗ ███╗   ██╗
 ██║    ██║██║████╗  ██║██╔════╝╚══██╔══╝██╔═══██╗████╗  ██║
@@ -281,11 +283,35 @@ gate CI on a minimum audit-quality bar. See
 ## VS Code Extension
 
 `extension/` is the Winston VS Code extension — the branded, one-click face
-of the server. It registers Winston in the workspace (`.vscode/mcp.json`),
-provides an *Audit this repository* command, and renders the threat graph in
-a native webview panel — no browser required — with the crown at the top
-and affected files branching beneath it, live-updating as the agent submits
-findings. See [`extension/README.md`](extension/README.md).
+of the server. It builds clean (`npm run build` inside `extension/`, plain
+`tsc`, zero external UI dependencies) and packages via
+`npx @vscode/vsce package`. It contributes four commands and renders its own
+graph view entirely inside VS Code — no browser tab, no external server.
+
+- **`Winston: Enable in this workspace`** writes (or merges into) a
+  `.vscode/mcp.json` pointing at the Winston MCP server, so any MCP-aware
+  agent in the editor (Copilot Chat, Claude Code's extension, etc.) can call
+  it immediately.
+- **`Winston: Audit this repository`** registers the server if needed, then
+  copies a ready-made audit prompt to your clipboard for you to paste into
+  your agent.
+- **`Winston: Open Threat Graph`** opens a native webview panel with a
+  self-contained SVG renderer (no cytoscape/CDN dependency, so it works
+  under VS Code's strict webview CSP and follows your light/dark theme). It
+  reads the same `~/.winston/graphs/*.json` the MCP server writes and
+  **live-updates via a filesystem watcher** as the agent submits findings —
+  the crown sits at the top of the tree, severity-colored nodes branch
+  beneath it, and clicking a node shows its evidence, reasoning, and fix
+  prompt, with affected files opening directly in the editor.
+- **`Winston: Detect AI Coding Tooling`** runs the same no-LLM detection
+  logic as the `detect_ai_tooling` MCP tool (a parallel implementation in
+  `extension/src/toolingDetector.ts`, since the extension doesn't depend on
+  the server package) and prints results to an output channel.
+
+The extension is not yet published to the Marketplace — install it locally
+(`npx @vscode/vsce package` then "Install from VSIX…" in VS Code, or run it
+via `F5` in an Extension Development Host from `extension/`). See
+[`extension/README.md`](extension/README.md) for development details.
 
 ## Configuration
 
@@ -402,10 +428,12 @@ worth knowing before you rely on it:
 - Structural repo scanning covers JS/TS, Python, Go, Rust, Java, PHP, and
   Ruby; Kotlin/Swift/Dart repos use an extension-based file-selection
   fallback rather than full structural parsing.
-- No license has been chosen yet — treat the code as all-rights-reserved
-  until a `LICENSE` file is added.
 
 ## License
 
-No license file has been added yet. All rights reserved until one is
-published.
+[MIT License, with one added condition](LICENSE): any product, service, or
+sub-product — internal or public — that is built on or incorporates this
+codebase must include a visible attribution stating that it uses or is
+built upon Winston (this repository). Aside from that requirement, it's
+standard MIT — use, modify, and distribute freely. See [`LICENSE`](LICENSE)
+for the exact terms.
