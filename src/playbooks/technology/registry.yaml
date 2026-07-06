@@ -1,0 +1,921 @@
+# Technology registry: maps manifest dependency keys / config filenames to
+# tags + playbooks. Exact-match, data-driven — no fuzzy/embedding matching.
+# Each entry's `playbooks` list is resolved relative to src/playbooks/.
+
+dependencies:
+  # ===================================================================
+  # AI / ML ecosystem — gates the technology/ai_ml/* playbooks. Any LLM
+  # orchestration, model runtime, or vector store pulls the AI/ML tier.
+  # ===================================================================
+  langchain:
+    tag: llm-app
+    category: ai
+    playbooks:
+      - technology/ai_ml/prompt_injection.md
+      - technology/ai_ml/insecure_output_handling.md
+      - technology/ai_ml/agent_excessive_agency.md
+      - technology/ai_ml/sensitive_information_disclosure.md
+      - technology/ai_ml/prompt_template_injection.md
+      - technology/ai_ml/llm_dos_and_cost.md
+      - technology/ai_ml/output_overreliance.md
+      - technology/ai_ml/content_safety_and_jailbreak.md
+      - technology/ai_ml/llm_authorization_boundaries.md
+  "@langchain/core":
+    tag: llm-app
+    category: ai
+    playbooks:
+      - technology/ai_ml/prompt_injection.md
+      - technology/ai_ml/insecure_output_handling.md
+      - technology/ai_ml/agent_excessive_agency.md
+      - technology/ai_ml/sensitive_information_disclosure.md
+      - technology/ai_ml/prompt_template_injection.md
+      - technology/ai_ml/llm_dos_and_cost.md
+      - technology/ai_ml/output_overreliance.md
+      - technology/ai_ml/content_safety_and_jailbreak.md
+  llamaindex:
+    tag: llm-app
+    category: ai
+    playbooks:
+      - technology/ai_ml/prompt_injection.md
+      - technology/ai_ml/insecure_output_handling.md
+      - technology/ai_ml/agent_excessive_agency.md
+      - technology/ai_ml/sensitive_information_disclosure.md
+  "llama-index":
+    tag: llm-app
+    category: ai
+    playbooks:
+      - technology/ai_ml/prompt_injection.md
+      - technology/ai_ml/rag_retrieval_security.md
+  "@modelcontextprotocol/sdk":
+    tag: mcp
+    category: ai
+    playbooks:
+      - technology/ai_ml/mcp_server_security.md
+      - technology/ai_ml/agent_excessive_agency.md
+  crewai:
+    tag: llm-agent
+    category: ai
+    playbooks:
+      - technology/ai_ml/agent_excessive_agency.md
+      - technology/ai_ml/agent_memory_poisoning.md
+      - technology/ai_ml/prompt_injection.md
+  autogen:
+    tag: llm-agent
+    category: ai
+    playbooks:
+      - technology/ai_ml/agent_excessive_agency.md
+      - technology/ai_ml/agent_memory_poisoning.md
+  "@openai/agents":
+    tag: llm-agent
+    category: ai
+    playbooks:
+      - technology/ai_ml/agent_excessive_agency.md
+      - technology/ai_ml/agent_memory_poisoning.md
+  transformers:
+    tag: ml-model
+    category: ai
+    playbooks:
+      - technology/ai_ml/model_deserialization.md
+      - technology/ai_ml/model_supply_chain.md
+      - technology/ai_ml/training_pipeline_security.md
+      - technology/ai_ml/training_data_poisoning.md
+      - technology/ai_ml/model_theft_extraction.md
+  torch:
+    tag: ml-model
+    category: ai
+    playbooks:
+      - technology/ai_ml/model_deserialization.md
+      - technology/ai_ml/model_supply_chain.md
+  tensorflow:
+    tag: ml-model
+    category: ai
+    playbooks:
+      - technology/ai_ml/model_deserialization.md
+      - technology/ai_ml/model_supply_chain.md
+  "scikit-learn":
+    tag: ml-model
+    category: ai
+    playbooks:
+      - technology/ai_ml/model_deserialization.md
+  joblib:
+    tag: ml-model
+    category: ai
+    playbooks:
+      - technology/ai_ml/model_deserialization.md
+  huggingface_hub:
+    tag: ml-model
+    category: ai
+    playbooks:
+      - technology/ai_ml/model_supply_chain.md
+      - technology/ai_ml/training_pipeline_security.md
+      - technology/ai_ml/training_data_poisoning.md
+      - technology/ai_ml/model_theft_extraction.md
+  onnxruntime:
+    tag: ml-model
+    category: ai
+    playbooks:
+      - technology/ai_ml/model_deserialization.md
+  pinecone-client:
+    tag: vector-db
+    category: ai
+    playbooks:
+      - technology/ai_ml/rag_retrieval_security.md
+      - technology/ai_ml/vector_store_security.md
+      - technology/ai_ml/embedding_privacy.md
+  "@pinecone-database/pinecone":
+    tag: vector-db
+    category: ai
+    playbooks:
+      - technology/ai_ml/rag_retrieval_security.md
+      - technology/ai_ml/vector_store_security.md
+      - technology/ai_ml/embedding_privacy.md
+  weaviate-client:
+    tag: vector-db
+    category: ai
+    playbooks:
+      - technology/ai_ml/rag_retrieval_security.md
+      - technology/ai_ml/vector_store_security.md
+  chromadb:
+    tag: vector-db
+    category: ai
+    playbooks:
+      - technology/ai_ml/rag_retrieval_security.md
+      - technology/ai_ml/vector_store_security.md
+  qdrant-client:
+    tag: vector-db
+    category: ai
+    playbooks:
+      - technology/ai_ml/rag_retrieval_security.md
+      - technology/ai_ml/vector_store_security.md
+
+  # ===================================================================
+  # App development — desktop (Electron/Tauri), browser extensions,
+  # native mobile (Android/iOS/Flutter). Gates the technology/{electron,
+  # tauri,desktop,browser_ext,android,ios,flutter,mobile}/* playbooks.
+  # ===================================================================
+  electron:
+    tag: electron
+    category: desktop
+    playbooks:
+      - technology/electron/process_model.md
+      - technology/electron/ipc_preload.md
+      - technology/desktop/auto_update.md
+      - technology/desktop/deep_link_hijacking.md
+      - technology/desktop/local_server.md
+      - technology/mobile/clipboard_and_screen_capture.md
+  electron-updater:
+    tag: electron
+    category: desktop
+    playbooks:
+      - technology/desktop/auto_update.md
+  "@tauri-apps/api":
+    tag: tauri
+    category: desktop
+    playbooks:
+      - technology/tauri/security.md
+      - technology/desktop/auto_update.md
+      - technology/desktop/deep_link_hijacking.md
+      - technology/desktop/local_server.md
+  "webextension-polyfill":
+    tag: browser-ext
+    category: browser_extension
+    playbooks:
+      - technology/browser_ext/permissions.md
+      - technology/browser_ext/messaging.md
+  "@types/chrome":
+    tag: browser-ext
+    category: browser_extension
+    playbooks:
+      - technology/browser_ext/permissions.md
+      - technology/browser_ext/messaging.md
+  next:
+    tag: nextjs
+    category: framework
+    playbooks:
+      - technology/nextjs/auth_and_middleware.md
+      - technology/nextjs/server_actions.md
+      - technology/nextjs/api_routes.md
+  express:
+    tag: express
+    category: framework
+    playbooks:
+      - technology/express/middleware_and_routing.md
+  "@prisma/client":
+    tag: prisma
+    category: database
+    playbooks:
+      - technology/prisma/query_safety.md
+  prisma:
+    tag: prisma
+    category: database
+    playbooks:
+      - technology/prisma/query_safety.md
+  pg:
+    tag: postgres
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  mongoose:
+    tag: mongodb
+    category: database
+    playbooks:
+      - technology/mongodb/mongoose_security.md
+  redis:
+    tag: redis
+    category: cache
+    playbooks: []
+  ioredis:
+    tag: redis
+    category: cache
+    playbooks: []
+  stripe:
+    tag: stripe
+    category: payments
+    playbooks:
+      - technology/stripe/webhook_and_payment_safety.md
+  jsonwebtoken:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  jose:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  pyjwt:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  next-auth:
+    tag: next-auth
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+      - technology/nextjs/auth_and_middleware.md
+  passport:
+    tag: passport
+    category: auth
+    playbooks: []
+  "@supabase/supabase-js":
+    tag: supabase
+    category: backend-as-a-service
+    playbooks:
+      - technology/supabase/row_level_security.md
+  firebase-admin:
+    tag: firebase
+    category: backend-as-a-service
+    playbooks:
+      - technology/firebase/security_rules.md
+  firebase:
+    tag: firebase
+    category: backend-as-a-service
+    playbooks:
+      - technology/firebase/security_rules.md
+  "@clerk/nextjs":
+    tag: clerk
+    category: auth
+    playbooks:
+      - technology/clerk_authjs/session_and_middleware.md
+  "@clerk/clerk-react":
+    tag: clerk
+    category: auth
+    playbooks:
+      - technology/clerk_authjs/session_and_middleware.md
+  better-auth:
+    tag: better-auth
+    category: auth
+    playbooks:
+      - technology/clerk_authjs/session_and_middleware.md
+  "@trpc/server":
+    tag: trpc
+    category: api_layer
+    playbooks:
+      - technology/trpc/procedure_authorization.md
+  graphql:
+    tag: graphql
+    category: api_layer
+    playbooks:
+      - technology/graphql/query_safety.md
+  "@apollo/server":
+    tag: graphql
+    category: api_layer
+    playbooks:
+      - technology/graphql/query_safety.md
+  graphql-yoga:
+    tag: graphql
+    category: api_layer
+    playbooks:
+      - technology/graphql/query_safety.md
+  "@upstash/ratelimit":
+    tag: upstash
+    category: rate_limiting
+    playbooks:
+      - ai_security/rate_limiting.md
+  "@upstash/redis":
+    tag: upstash
+    category: rate_limiting
+    playbooks:
+      - ai_security/rate_limiting.md
+  openai:
+    tag: llm-api
+    category: ai_integration
+    playbooks:
+      - ai_security/ai_llm_api_security.md
+      - technology/ai_ml/prompt_injection.md
+      - technology/ai_ml/insecure_output_handling.md
+      - technology/ai_ml/sensitive_information_disclosure.md
+      - technology/ai_ml/prompt_template_injection.md
+      - technology/ai_ml/llm_dos_and_cost.md
+      - technology/ai_ml/output_overreliance.md
+      - technology/ai_ml/content_safety_and_jailbreak.md
+      - technology/ai_ml/multimodal_injection.md
+  "@anthropic-ai/sdk":
+    tag: llm-api
+    category: ai_integration
+    playbooks:
+      - ai_security/ai_llm_api_security.md
+      - technology/ai_ml/prompt_injection.md
+      - technology/ai_ml/insecure_output_handling.md
+      - technology/ai_ml/sensitive_information_disclosure.md
+      - technology/ai_ml/prompt_template_injection.md
+      - technology/ai_ml/llm_dos_and_cost.md
+      - technology/ai_ml/output_overreliance.md
+      - technology/ai_ml/content_safety_and_jailbreak.md
+      - technology/ai_ml/multimodal_injection.md
+  uploadthing:
+    tag: file-upload
+    category: upload
+    playbooks:
+      - ai_security/file_uploads.md
+  multer:
+    tag: file-upload
+    category: upload
+    playbooks:
+      - ai_security/file_uploads.md
+  "@aws-sdk/client-s3":
+    tag: file-upload
+    category: upload
+    playbooks:
+      - ai_security/file_uploads.md
+  flask:
+    tag: flask
+    category: framework
+    playbooks:
+      - technology/python/flask_fastapi_security.md
+  fastapi:
+    tag: fastapi
+    category: framework
+    playbooks:
+      - technology/python/flask_fastapi_security.md
+  django:
+    tag: django
+    category: framework
+    playbooks:
+      - technology/python/django_security.md
+  rails:
+    tag: rails
+    category: framework
+    playbooks:
+      - technology/rails/rails_security.md
+  "laravel/framework":
+    tag: laravel
+    category: framework
+    playbooks:
+      - technology/laravel/laravel_security.md
+  astro:
+    tag: astro
+    category: framework
+    playbooks:
+      - technology/astro/astro_security.md
+  "@sveltejs/kit":
+    tag: sveltekit
+    category: framework
+    playbooks:
+      - technology/sveltekit/sveltekit_security.md
+  "@remix-run/react":
+    tag: remix
+    category: framework
+    playbooks:
+      - technology/remix/remix_security.md
+  nuxt:
+    tag: nuxt
+    category: framework
+    playbooks:
+      - technology/nuxt/nuxt_security.md
+  "drizzle-orm":
+    tag: drizzle
+    category: database
+    playbooks:
+      - technology/drizzle/query_safety.md
+  "socket.io":
+    tag: realtime
+    category: realtime
+    playbooks:
+      - technology/realtime/websockets_and_pubsub.md
+  ws:
+    tag: realtime
+    category: realtime
+    playbooks:
+      - technology/realtime/websockets_and_pubsub.md
+  pusher:
+    tag: realtime
+    category: realtime
+    playbooks:
+      - technology/realtime/websockets_and_pubsub.md
+  ably:
+    tag: realtime
+    category: realtime
+    playbooks:
+      - technology/realtime/websockets_and_pubsub.md
+  inngest:
+    tag: background-jobs
+    category: queue
+    playbooks:
+      - technology/background_jobs/queue_security.md
+  "@trigger.dev/sdk":
+    tag: background-jobs
+    category: queue
+    playbooks:
+      - technology/background_jobs/queue_security.md
+  bullmq:
+    tag: background-jobs
+    category: queue
+    playbooks:
+      - technology/background_jobs/queue_security.md
+  expo:
+    tag: expo
+    category: mobile
+    playbooks:
+      - technology/expo_react_native/mobile_security.md
+      - technology/mobile/biometric_auth.md
+      - technology/mobile/permissions_privacy.md
+      - technology/mobile/deeplink_validation.md
+      - technology/mobile/clipboard_and_screen_capture.md
+  "react-native":
+    tag: expo
+    category: mobile
+    playbooks:
+      - technology/expo_react_native/mobile_security.md
+      - technology/mobile/biometric_auth.md
+      - technology/mobile/permissions_privacy.md
+      - technology/mobile/deeplink_validation.md
+      - technology/mobile/clipboard_and_screen_capture.md
+  resend:
+    tag: email
+    category: email
+    playbooks:
+      - technology/email/transactional_email_security.md
+  "@sendgrid/mail":
+    tag: email
+    category: email
+    playbooks:
+      - technology/email/transactional_email_security.md
+  postmark:
+    tag: email
+    category: email
+    playbooks:
+      - technology/email/transactional_email_security.md
+
+  # --- SQL drivers / query builders / ORMs (gate ai_security/sql_injection) ---
+  mysql:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  mysql2:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  sqlite3:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  better-sqlite3:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  knex:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  sequelize:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  typeorm:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  kysely:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  psycopg2:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  psycopg2-binary:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  psycopg:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  pymysql:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  mysqlclient:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  sqlalchemy:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  "doctrine/orm":
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+  mysql-connector-python:
+    tag: sql
+    category: database
+    playbooks:
+      - ai_security/sql_injection.md
+
+  # --- NoSQL beyond Mongoose (gates ai_security/nosql_injection) ---
+  mongodb:
+    tag: mongodb
+    category: database
+    playbooks:
+      - technology/mongodb/mongoose_security.md
+  pymongo:
+    tag: mongodb
+    category: database
+    playbooks: []
+  "@aws-sdk/client-dynamodb":
+    tag: dynamodb
+    category: database
+    playbooks: []
+  "@aws-sdk/lib-dynamodb":
+    tag: dynamodb
+    category: database
+    playbooks: []
+
+  # --- Frontend / templating (gates ai_security/xss) ---
+  react:
+    tag: frontend
+    category: frontend
+    playbooks: []
+  react-dom:
+    tag: frontend
+    category: frontend
+    playbooks: []
+  vue:
+    tag: frontend
+    category: frontend
+    playbooks: []
+  svelte:
+    tag: frontend
+    category: frontend
+    playbooks: []
+  "@angular/core":
+    tag: frontend
+    category: frontend
+    playbooks: []
+  solid-js:
+    tag: frontend
+    category: frontend
+    playbooks: []
+  preact:
+    tag: frontend
+    category: frontend
+    playbooks: []
+  ejs:
+    tag: templating
+    category: frontend
+    playbooks: []
+  pug:
+    tag: templating
+    category: frontend
+    playbooks: []
+  handlebars:
+    tag: templating
+    category: frontend
+    playbooks: []
+  nunjucks:
+    tag: templating
+    category: frontend
+    playbooks: []
+  mustache:
+    tag: templating
+    category: frontend
+    playbooks: []
+  jinja2:
+    tag: templating
+    category: frontend
+    playbooks: []
+  mako:
+    tag: templating
+    category: frontend
+    playbooks: []
+  "twig/twig":
+    tag: templating
+    category: frontend
+    playbooks: []
+
+  # --- Additional JWT providers (gate ai_security/jwt_authentication) ---
+  passport-jwt:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  "@fastify/jwt":
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  python-jose:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  flask-jwt-extended:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  djangorestframework-simplejwt:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  jwt:
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  "firebase/php-jwt":
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+  "tymon/jwt-auth":
+    tag: jwt
+    category: auth
+    playbooks:
+      - ai_security/jwt_authentication.md
+
+  # --- New server frameworks ---
+  "@nestjs/core":
+    tag: nestjs
+    category: framework
+    playbooks:
+      - technology/nestjs/nestjs_security.md
+  fastify:
+    tag: fastify
+    category: framework
+    playbooks:
+      - technology/fastify/fastify_security.md
+  hono:
+    tag: hono
+    category: framework
+    playbooks: []
+  koa:
+    tag: koa
+    category: framework
+    playbooks: []
+
+  # --- Serverless / webhooks ---
+  serverless:
+    tag: serverless
+    category: cloud
+    playbooks:
+      - technology/serverless/lambda_security.md
+  aws-lambda:
+    tag: serverless
+    category: cloud
+    playbooks:
+      - technology/serverless/lambda_security.md
+  svix:
+    tag: webhooks
+    category: api_layer
+    playbooks: []
+
+  # --- Entity-resolving XML parsers (gate ai_security/xxe beyond Java/.NET/PHP,
+  # which are covered by their language tags). Only libraries that CAN resolve
+  # external entities are listed — Node parsers like fast-xml-parser/xml2js do
+  # not, so including them would load the playbook only to find nothing. ---
+  lxml:
+    tag: xml
+    category: xml
+    playbooks:
+      - ai_security/xxe.md
+  libxmljs:
+    tag: xml
+    category: xml
+    playbooks:
+      - ai_security/xxe.md
+  libxmljs2:
+    tag: xml
+    category: xml
+    playbooks:
+      - ai_security/xxe.md
+
+files:
+  Dockerfile:
+    tag: docker
+    category: deployment
+    playbooks:
+      - technology/docker/container_hardening.md
+  docker-compose.yml:
+    tag: docker-compose
+    category: deployment
+    playbooks:
+      - technology/docker/container_hardening.md
+  vercel.json:
+    tag: vercel
+    category: cloud
+    playbooks:
+      - technology/vercel/deployment_security.md
+  serverless.yml:
+    tag: serverless
+    category: cloud
+    playbooks:
+      - technology/serverless/lambda_security.md
+  serverless.ts:
+    tag: serverless
+    category: cloud
+    playbooks:
+      - technology/serverless/lambda_security.md
+  samconfig.toml:
+    tag: serverless
+    category: cloud
+    playbooks:
+      - technology/serverless/lambda_security.md
+  Chart.yaml:
+    tag: kubernetes
+    category: deployment
+    playbooks:
+      - technology/kubernetes/workload_security.md
+  kustomization.yaml:
+    tag: kubernetes
+    category: deployment
+    playbooks:
+      - technology/kubernetes/workload_security.md
+  skaffold.yaml:
+    tag: kubernetes
+    category: deployment
+    playbooks:
+      - technology/kubernetes/workload_security.md
+  k8s:
+    tag: kubernetes
+    category: deployment
+    playbooks:
+      - technology/kubernetes/workload_security.md
+  kubernetes:
+    tag: kubernetes
+    category: deployment
+    playbooks:
+      - technology/kubernetes/workload_security.md
+  pom.xml:
+    tag: java
+    category: language
+    playbooks:
+      - technology/java_spring/spring_security.md
+  build.gradle:
+    tag: java
+    category: language
+    playbooks:
+      - technology/java_spring/spring_security.md
+  build.gradle.kts:
+    tag: java
+    category: language
+    playbooks:
+      - technology/java_spring/spring_security.md
+  requirements.txt:
+    tag: python
+    category: language
+    playbooks: []
+  pyproject.toml:
+    tag: python
+    category: language
+    playbooks: []
+  go.mod:
+    tag: go
+    category: language
+    playbooks:
+      - technology/go/go_web_security.md
+  Gemfile:
+    tag: ruby
+    category: language
+    playbooks: []
+  composer.json:
+    tag: php
+    category: language
+    playbooks: []
+  Cargo.toml:
+    tag: rust
+    category: language
+    playbooks: []
+  # --- Native mobile / desktop manifests ---
+  AndroidManifest.xml:
+    tag: android
+    category: mobile
+    playbooks:
+      - technology/android/insecure_storage.md
+      - technology/android/exported_components.md
+      - technology/android/webview.md
+      - technology/android/network_security.md
+      - technology/mobile/biometric_auth.md
+      - technology/mobile/permissions_privacy.md
+      - technology/mobile/deeplink_validation.md
+      - technology/mobile/clipboard_and_screen_capture.md
+  Info.plist:
+    tag: ios
+    category: mobile
+    playbooks:
+      - technology/ios/insecure_storage.md
+      - technology/ios/ats_network.md
+      - technology/ios/url_scheme.md
+      - technology/mobile/biometric_auth.md
+      - technology/mobile/permissions_privacy.md
+      - technology/mobile/deeplink_validation.md
+      - technology/mobile/clipboard_and_screen_capture.md
+  pubspec.yaml:
+    tag: flutter
+    category: mobile
+    playbooks:
+      - technology/flutter/security.md
+      - technology/mobile/biometric_auth.md
+      - technology/mobile/permissions_privacy.md
+      - technology/mobile/deeplink_validation.md
+  tauri.conf.json:
+    tag: tauri
+    category: desktop
+    playbooks:
+      - technology/tauri/security.md
+      - technology/desktop/auto_update.md
+      - technology/desktop/deep_link_hijacking.md
+      - technology/desktop/local_server.md
+
+# Matched against file extensions seen anywhere in the repo (depth-limited
+# walk, build/vendor dirs skipped). For stacks whose presence is signalled by
+# a file type rather than an exactly-named manifest.
+extensions:
+  ".tf":
+    tag: terraform
+    category: deployment
+    playbooks:
+      - technology/terraform/iac_security.md
+  ".tfvars":
+    tag: terraform
+    category: deployment
+    playbooks:
+      - technology/terraform/iac_security.md
+  ".csproj":
+    tag: dotnet
+    category: language
+    playbooks:
+      - technology/dotnet/aspnet_core_security.md
+  ".sln":
+    tag: dotnet
+    category: language
+    playbooks:
+      - technology/dotnet/aspnet_core_security.md
+  ".swift":
+    tag: ios
+    category: mobile
+    playbooks:
+      - technology/ios/insecure_storage.md
+      - technology/ios/ats_network.md
+      - technology/ios/url_scheme.md
+  ".dart":
+    tag: flutter
+    category: mobile
+    playbooks:
+      - technology/flutter/security.md
+
+ci_dirs:
+  ".github/workflows":
+    tag: github-actions
+    category: ci_cd
+    playbooks:
+      - technology/github_actions/cicd_security.md

@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Winston Playbook Frontmatter",
+  "description": "Documents the YAML frontmatter shape every playbook .md file must match. The authoritative, enforced version of this schema is the zod schema at src/models/playbook.ts (PlaybookFrontmatterSchema) — this file exists as human-readable reference for anyone authoring a new playbook by hand. Run `npm run validate-playbooks` to check real files against the zod schema.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "category",
+    "vulnerabilityClass",
+    "appliesToStack",
+    "quickModeSummary",
+    "fileSelectionHint",
+    "severityHeuristics",
+    "graphNodeMapping"
+  ],
+  "properties": {
+    "id": { "type": "string", "description": "Dotted id, e.g. ai_security.jwt_authentication" },
+    "title": { "type": "string" },
+    "category": { "type": "string", "enum": ["ai_security", "technology", "ai_mistakes"] },
+    "vulnerabilityClass": { "type": "string" },
+    "appliesToStack": { "type": "string", "description": "\"technology-agnostic\" or a registry.yaml tag" },
+    "deepOnly": { "type": "boolean", "default": false },
+    "reviewPass": { "type": "integer", "minimum": 1, "maximum": 3, "default": 1 },
+    "owaspRefs": { "type": "array", "items": { "type": "string" } },
+    "cweRefs": { "type": "array", "items": { "type": "string" } },
+    "realWorldReferences": {
+      "type": "array",
+      "description": "Citations beyond OWASP/CWE: real incident postmortems, disclosed bug-bounty writeups, vendor security advisories, research papers, conference talks, security blogs. Every entry must be a real, checkable source.",
+      "items": {
+        "type": "object",
+        "required": ["title", "url", "type"],
+        "properties": {
+          "title": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "type": {
+            "type": "string",
+            "enum": [
+              "incident_postmortem",
+              "bug_bounty_disclosure",
+              "vendor_security_advisory",
+              "research_paper",
+              "conference_talk",
+              "security_blog"
+            ]
+          }
+        }
+      }
+    },
+    "quickModeSummary": { "type": "string" },
+    "fileSelectionHint": {
+      "type": "object",
+      "properties": {
+        "roles": { "type": "array", "items": { "type": "string" } },
+        "matchImports": { "type": "array", "items": { "type": "string" } },
+        "matchAuthMapTags": { "type": "array", "items": { "type": "string" } },
+        "maxFiles": { "type": "integer", "default": 8 },
+        "priorityOrder": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "severityHeuristics": {
+      "type": "object",
+      "properties": {
+        "critical": { "type": "array", "items": { "type": "string" } },
+        "high": { "type": "array", "items": { "type": "string" } },
+        "medium": { "type": "array", "items": { "type": "string" } },
+        "low": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "graphNodeMapping": {
+      "type": "object",
+      "required": ["primaryNodeType", "primaryNodeId"],
+      "properties": {
+        "primaryNodeType": { "type": "string" },
+        "primaryNodeId": { "type": "string" },
+        "relatedNodeIds": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "graphEdgeMapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["relation", "from", "to"],
+        "properties": {
+          "relation": { "type": "string" },
+          "from": { "type": "string" },
+          "to": { "type": "string" }
+        }
+      }
+    },
+    "commonAiCodingMistakes": { "type": "array", "items": { "type": "string" } },
+    "falsePositiveGuardrails": { "type": "array", "items": { "type": "string" } }
+  }
+}

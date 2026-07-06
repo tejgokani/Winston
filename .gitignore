@@ -1,0 +1,7 @@
+node_modules/
+dist/
+venv/
+.DS_Store
+*.log
+.tokensave/
+.claude/

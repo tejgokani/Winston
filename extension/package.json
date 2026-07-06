@@ -1,0 +1,64 @@
+{
+  "name": "winston",
+  "displayName": "Winston — AI Security Auditor",
+  "description": "State-of-the-art security auditing inside VS Code. Detects your stack, targets the exact playbooks, and renders findings as an interactive root-cause threat graph — the crown at the top, affected files branching beneath.",
+  "version": "0.1.0",
+  "publisher": "winston",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Other", "Linters"],
+  "keywords": ["security", "audit", "mcp", "threat graph", "ai"],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "winston.openGraph",
+        "title": "Winston: Open Threat Graph",
+        "category": "Winston"
+      },
+      {
+        "command": "winston.registerMcp",
+        "title": "Winston: Enable in this workspace (register MCP server)",
+        "category": "Winston"
+      },
+      {
+        "command": "winston.detectTooling",
+        "title": "Winston: Detect AI Coding Tooling",
+        "category": "Winston"
+      },
+      {
+        "command": "winston.audit",
+        "title": "Winston: Audit this repository",
+        "category": "Winston"
+      }
+    ],
+    "configuration": {
+      "title": "Winston",
+      "properties": {
+        "winston.serverCommand": {
+          "type": "string",
+          "default": "npx",
+          "description": "Command used to launch the Winston MCP server."
+        },
+        "winston.serverArgs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["-y", "winston-mcp"],
+          "description": "Arguments passed to the Winston MCP server command."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json -w",
+    "vscode:prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,65 @@
+:root {
+  --crit: #ef4444;
+  --high: #f97316;
+  --med: #eab308;
+  --low: #84cc16;
+  --comp: var(--vscode-descriptionForeground, #9ca3af);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--vscode-font-family, system-ui, sans-serif);
+  color: var(--vscode-foreground);
+  background: var(--vscode-editor-background);
+}
+#app { display: flex; height: 100vh; }
+#graph { flex: 1; position: relative; overflow: auto; }
+#empty {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: .5rem; text-align: center; padding: 2rem;
+  color: var(--vscode-descriptionForeground);
+}
+#empty h2 { margin: 0; font-weight: 600; }
+svg { display: block; }
+.edge { stroke: var(--vscode-panel-border, #4b5563); stroke-width: 1.5; fill: none; opacity: .55; }
+.edge.causes { stroke: var(--crit); opacity: .8; }
+.node { cursor: pointer; }
+.node rect, .node circle { stroke: var(--vscode-panel-border, #4b5563); stroke-width: 1; }
+.node text { fill: var(--vscode-foreground); font-size: 12px; pointer-events: none; }
+.node .sub { fill: var(--vscode-descriptionForeground); font-size: 10px; }
+.node.crown rect { stroke: gold; stroke-width: 2.5; }
+.node.selected rect, .node.selected circle { stroke: var(--vscode-focusBorder, #3b82f6); stroke-width: 3; }
+.crown-badge { font-size: 15px; }
+
+#panel {
+  width: 360px; flex-shrink: 0; border-left: 1px solid var(--vscode-panel-border, #333);
+  padding: 1rem; overflow-y: auto; background: var(--vscode-sideBar-background, transparent);
+}
+#panel.hidden { display: none; }
+#panel h2 { font-size: 1rem; margin: 0 0 .25rem; }
+#panel .badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px; color: #111;
+  font-size: .7rem; text-transform: uppercase; font-weight: 700; margin-bottom: .75rem;
+}
+#panel .field { margin-bottom: .8rem; }
+#panel .field-label {
+  font-weight: 700; font-size: .68rem; text-transform: uppercase;
+  color: var(--vscode-descriptionForeground); margin-bottom: .2rem;
+}
+#panel pre, #panel code {
+  background: var(--vscode-textCodeBlock-background, rgba(127,127,127,.15));
+  padding: .5rem; border-radius: 4px; overflow-x: auto; font-size: .75rem;
+  white-space: pre-wrap; font-family: var(--vscode-editor-font-family, monospace);
+}
+#panel .file {
+  cursor: pointer; color: var(--vscode-textLink-foreground); text-decoration: underline;
+  display: block; font-size: .8rem; margin: .1rem 0;
+}
+#toolbar {
+  position: absolute; top: .5rem; left: .5rem; display: flex; gap: .5rem; align-items: center;
+  background: var(--vscode-editorWidget-background, rgba(0,0,0,.35)); padding: .35rem .6rem;
+  border-radius: 6px; font-size: .78rem; z-index: 5;
+}
+#toolbar .stat { opacity: .85; }
+#toolbar .crit { color: var(--crit); font-weight: 700; }

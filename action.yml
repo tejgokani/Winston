@@ -1,0 +1,42 @@
+name: "Winston Security Audit"
+description: "Run Winston's deterministic security gate (secret scan) and, optionally, an agent-driven full audit that uploads SARIF to GitHub Code Scanning."
+branding:
+  icon: "shield"
+  color: "purple"
+inputs:
+  path:
+    description: "Path to the repository to scan"
+    required: false
+    default: "."
+  fail-on-secrets:
+    description: "Fail the job if high-confidence secrets are found"
+    required: false
+    default: "true"
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+    - name: Install Winston
+      shell: bash
+      run: npm install -g winston-mcp
+    - name: Deterministic secret gate
+      shell: bash
+      run: |
+        if [ "${{ inputs.fail-on-secrets }}" = "true" ]; then
+          winston secrets "${{ inputs.path }}"
+        else
+          winston secrets "${{ inputs.path }}" || true
+        fi
+    # The full LLM audit runs through an MCP-capable agent (e.g. the Claude
+    # Code GitHub Action) with Winston registered as an MCP server. After it
+    # submits findings, export SARIF and upload it:
+    #
+    #   - run: winston report --scan "$SCAN_ID" --format sarif --out winston.sarif
+    #   - uses: github/codeql-action/upload-sarif@v3
+    #     with:
+    #       sarif_file: winston.sarif
+    #
+    # See the README "CI / GitHub Action" section for the full agent wiring.

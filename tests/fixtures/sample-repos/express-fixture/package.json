@@ -1,0 +1,8 @@
+{
+  "name": "express-fixture",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

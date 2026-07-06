@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Winston — Threat Graph</title>
+  <script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      height: 100vh;
+      color: #1f2937;
+    }
+    #sidebar {
+      width: 320px;
+      border-right: 1px solid #e5e7eb;
+      padding: 1rem;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    #sidebar h1 { font-size: 1.1rem; margin: 0 0 0.25rem; }
+    #repoInput { width: 100%; padding: 0.4rem; margin-bottom: 0.5rem; }
+    #loadBtn { width: 100%; padding: 0.4rem; margin-bottom: 1rem; cursor: pointer; }
+    #legend div { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 0.8rem; }
+    .swatch { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    #graphArea { flex: 1; position: relative; }
+    #cy { width: 100%; height: 100%; }
+    #panel {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 340px;
+      max-height: calc(100% - 2rem);
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: none;
+    }
+    #panel h2 { font-size: 1rem; margin-top: 0; }
+    #panel .field { margin-bottom: 0.6rem; }
+    #panel .field-label { font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: #6b7280; }
+    #panel pre { background: #f3f4f6; padding: 0.5rem; border-radius: 4px; overflow-x: auto; font-size: 0.75rem; white-space: pre-wrap; }
+    .severity-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.7rem; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h1>Winston</h1>
+    <p style="font-size:0.8rem;color:#6b7280;margin-top:0;">Interactive threat graph</p>
+    <input id="repoInput" type="text" placeholder="Absolute repo path" />
+    <button id="loadBtn">Load Graph</button>
+    <div id="summary"></div>
+    <div id="legend">
+      <div><span class="swatch" style="background:#b91c1c"></span> Critical</div>
+      <div><span class="swatch" style="background:#c2410c"></span> High</div>
+      <div><span class="swatch" style="background:#a16207"></span> Medium</div>
+      <div><span class="swatch" style="background:#4d7c0f"></span> Low</div>
+      <div><span class="swatch" style="background:#6b7280"></span> Component</div>
+    </div>
+  </div>
+  <div id="graphArea">
+    <div id="cy"></div>
+    <div id="panel"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
