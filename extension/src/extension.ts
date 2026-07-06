@@ -132,7 +132,7 @@ async function registerMcp() {
   }
   const cfg = vscode.workspace.getConfiguration("winston");
   const command = cfg.get<string>("serverCommand", "npx");
-  const args = cfg.get<string[]>("serverArgs", ["-y", "winston-mcp"]);
+  const args = cfg.get<string[]>("serverArgs", ["-y", "winston_sec_mcp"]);
 
   const dir = join(root, ".vscode");
   const file = join(dir, "mcp.json");

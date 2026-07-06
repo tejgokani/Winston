@@ -1,5 +1,5 @@
 {
-  "name": "winston",
+  "name": "winston_sec_mcp",
   "version": "0.1.0",
   "description": "AI-assisted security auditing MCP server with an interactive threat graph.",
   "license": "SEE LICENSE IN LICENSE",
@@ -12,6 +12,9 @@
     "winston-mcp": "./dist/server.js",
     "winston": "./dist/cli.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json && npm run copy-assets",
     "copy-assets": "node -e \"const fs=require('fs'); fs.cpSync('src/playbooks','dist/playbooks',{recursive:true}); fs.cpSync('src/ui/static','dist/ui/static',{recursive:true});\"",
@@ -19,7 +22,8 @@
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate-playbooks": "tsx scripts/validatePlaybooks.ts"
+    "validate-playbooks": "tsx scripts/validatePlaybooks.ts",
+    "prepublishOnly": "rm -rf dist && npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",

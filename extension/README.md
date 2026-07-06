@@ -40,4 +40,4 @@ Before publishing to the Marketplace, add a `media/icon.png` and restore the
 The extension is the packaging; the MCP server is the engine. The server does
 the auditing and owns all writes to `~/.winston`; the extension only reads that
 store to visualize it and provides one-click registration + commands. Install
-the server (`npm i -g winston-mcp` or via `npx`) for the audit to run.
+the server (`npm i -g winston_sec_mcp` or via `npx`) for the audit to run.

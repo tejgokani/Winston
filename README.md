@@ -127,7 +127,7 @@ call for.
 ## Quick Start
 
 > Winston is not yet published to npm — build and run it from source today.
-> (`npx -y winston-mcp` will work once published; the extension already
+> (`npx -y winston_sec_mcp` will work once published; the extension already
 > defaults to that command.)
 
 ```bash

@@ -52,7 +52,7 @@
         "winston.serverArgs": {
           "type": "array",
           "items": { "type": "string" },
-          "default": ["-y", "winston-mcp"],
+          "default": ["-y", "winston_sec_mcp"],
           "description": "Arguments passed to the Winston MCP server command."
         }
       }
