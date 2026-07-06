@@ -17,9 +17,14 @@ threat graph** right inside the editor — no browser, no web viewer.
   sits at the top; the vulnerabilities and components it causes branch beneath
   it, severity-colored. Click a node for evidence, reasoning, the attack
   scenario, affected files (click to open), and the AI fix prompt.
-- **`Winston: Detect AI Coding Tooling`** — heuristic detection of which AI
-  tools were used in the repo (git trailers + config artifacts), with
-  confidence levels. Honest by design: signals, not per-file authorship claims.
+
+AI-tooling detection (which coding tools were used in a repo, from git
+trailers and config artifacts) is available as the `detect_ai_tooling` MCP
+tool — ask your agent to call it. It's not duplicated as a standalone
+extension command, since a local, extension-side `git` shell-out is exactly
+the kind of process-spawning pattern marketplace security scanners flag;
+routing it through the MCP server (which already runs with the trust the
+user granted the agent) avoids that with no loss of functionality.
 
 The graph view is fully self-contained (a custom SVG renderer — no external
 libraries), so it respects VS Code's webview CSP and your light/dark theme.

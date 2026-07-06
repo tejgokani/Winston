@@ -2,7 +2,6 @@ import { existsSync, mkdirSync, readFileSync, watch, writeFileSync, type FSWatch
 import { join } from "node:path";
 import * as vscode from "vscode";
 import { graphFilePathForRepo, readGraphForRepo } from "./graphReader";
-import { detectAiTooling } from "./toolingDetector";
 
 let panel: vscode.WebviewPanel | undefined;
 let watcher: FSWatcher | undefined;
@@ -11,7 +10,6 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("winston.openGraph", () => openGraph(context)),
     vscode.commands.registerCommand("winston.registerMcp", () => registerMcp()),
-    vscode.commands.registerCommand("winston.detectTooling", () => detectTooling()),
     vscode.commands.registerCommand("winston.audit", () => audit())
   );
 }
@@ -155,38 +153,6 @@ async function registerMcp() {
   vscode.window.showInformationMessage(
     "Winston registered in .vscode/mcp.json. Reload your MCP client / agent to pick it up."
   );
-}
-
-// --- Detect AI tooling ----------------------------------------------------
-
-function detectTooling() {
-  const root = workspaceRoot();
-  if (!root) {
-    vscode.window.showWarningMessage("Winston: open a folder first.");
-    return;
-  }
-  const report = detectAiTooling(root);
-  const channel = vscode.window.createOutputChannel("Winston — AI Tooling");
-  channel.clear();
-  channel.appendLine("Detected AI coding tooling (heuristic signals — not proof of authorship)");
-  channel.appendLine("=".repeat(72));
-  if (report.detectedTools.length === 0) {
-    channel.appendLine("No AI-tooling signals found in git history or config artifacts.");
-  } else {
-    for (const t of report.detectedTools) channel.appendLine(`  • ${t.tool}  [${t.confidence} confidence]`);
-    channel.appendLine("");
-    channel.appendLine("Evidence:");
-    for (const s of report.signals) channel.appendLine(`  - ${s.tool}: ${s.evidence} (${s.source})`);
-  }
-  channel.appendLine("");
-  channel.appendLine(report.disclaimer);
-  channel.show(true);
-
-  const summary =
-    report.detectedTools.length === 0
-      ? "No AI-tooling signals found."
-      : "Detected: " + report.detectedTools.map((t) => `${t.tool} (${t.confidence})`).join(", ");
-  vscode.window.showInformationMessage(`Winston: ${summary}`);
 }
 
 // --- Audit helper ---------------------------------------------------------

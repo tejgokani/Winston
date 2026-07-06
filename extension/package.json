@@ -31,11 +31,6 @@
         "category": "Winston"
       },
       {
-        "command": "winston.detectTooling",
-        "title": "Winston: Detect AI Coding Tooling",
-        "category": "Winston"
-      },
-      {
         "command": "winston.audit",
         "title": "Winston: Audit this repository",
         "category": "Winston"

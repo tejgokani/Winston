@@ -313,8 +313,12 @@ gate CI on a minimum audit-quality bar. See
 `extension/` is the Winston VS Code extension — the branded, one-click face
 of the server. It builds clean (`npm run build` inside `extension/`, plain
 `tsc`, zero external UI dependencies) and packages via
-`npx @vscode/vsce package`. It contributes four commands and renders its own
-graph view entirely inside VS Code — no browser tab, no external server.
+`npx @vscode/vsce package`. It contributes three commands and renders its own
+graph view entirely inside VS Code — no browser tab, no external server. It
+also deliberately does not spawn any child processes itself (a common
+trigger for marketplace security scanners) — anything that needs to shell
+out, like git-based AI-tooling detection, runs through the MCP server
+instead, which the user's agent already trusts.
 
 - **`Winston: Enable in this workspace`** writes (or merges into) a
   `.vscode/mcp.json` pointing at the Winston MCP server, so any MCP-aware
@@ -331,10 +335,6 @@ graph view entirely inside VS Code — no browser tab, no external server.
   the crown sits at the top of the tree, severity-colored nodes branch
   beneath it, and clicking a node shows its evidence, reasoning, and fix
   prompt, with affected files opening directly in the editor.
-- **`Winston: Detect AI Coding Tooling`** runs the same no-LLM detection
-  logic as the `detect_ai_tooling` MCP tool (a parallel implementation in
-  `extension/src/toolingDetector.ts`, since the extension doesn't depend on
-  the server package) and prints results to an output channel.
 
 The extension is not yet published to the Marketplace — install it locally
 (`npx @vscode/vsce package` then "Install from VSIX…" in VS Code, or run it
